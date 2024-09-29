@@ -1,0 +1,6 @@
+@import '../node_modules/bulma/css/bulma.min.css';
+
+/* Add any custom global styles here */
+body {
+    background-color: #f5f5f5;
+}
