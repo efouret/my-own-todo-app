@@ -76,3 +76,15 @@ export async function updateTodo(id: string, data: Partial<Todo>) {
 	}
 	return response.json()
 }
+
+export const importCsv = async (csv: File): Promise<void> => {
+	try {
+		const formData = new FormData()
+		formData.append('csv', csv)
+		await axios.post(`${API_BASE_URL}/tasks/import-csv`, formData, {
+			headers: { 'Content-Type': 'multipart/form-data' },
+		})
+	} catch (error) {
+		console.error('Error importing CSV:', error)
+	}
+}
