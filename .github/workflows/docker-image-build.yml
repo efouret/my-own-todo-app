@@ -23,6 +23,7 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
           cache: 'maven'
+          cache-dependency-path: 'backend/my-own-todo-app/pom.xml'
 
       - name: Navigate to backend directory
         working-directory: backend/my-own-todo-app
