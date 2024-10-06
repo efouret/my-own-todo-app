@@ -18,6 +18,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+          cache: 'maven'
 
       - name: Navigate to backend directory
         working-directory: backend/my-own-todo-app
