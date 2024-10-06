@@ -266,7 +266,7 @@
                         </goals>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <arguments>run build</arguments>
+                            <arguments>run build -- --mode production</arguments>
                             <workingDirectory>${frontend.directory}</workingDirectory>
                         </configuration>
                     </execution>
