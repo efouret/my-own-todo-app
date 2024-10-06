@@ -33,7 +33,7 @@ class NitriteTaskRepository : TaskRepository {
             config.getValue("db.nitrite.user", String::class.java),
             config.getValue("db.nitrite.password", String::class.java)
         ) {
-            loadModule(MVStoreModule(dbFilePath))
+            loadModule(MVStoreModule.withConfig().filePath(dbFilePath).autoCommit(true).build())
             loadModule(module(KotlinXSerializationMapper()))
         }
     }
