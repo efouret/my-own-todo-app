@@ -56,9 +56,9 @@ export const toggleTodo = async (
 	updates: Partial<Todo>,
 ): Promise<void> => {
 	try {
-		const response = await axios.put<Todo>(`${API_BASE_URL}/tasks/${id}/done`, updates)
+		await axios.put<Todo>(`${API_BASE_URL}/tasks/${id}/done`, updates)
 		todos.update(current =>
-			current.map(todo => (todo.id === id ? response.data : todo)),
+			current.filter(todo => todo.id !== id),
 		)
 	} catch (error) {
 		console.error('Error toggling todo:', error)
