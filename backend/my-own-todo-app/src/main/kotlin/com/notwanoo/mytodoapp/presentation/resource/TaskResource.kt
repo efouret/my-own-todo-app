@@ -47,7 +47,7 @@ class TaskResource {
         logger.info("Creating task with title: ${createTaskRequest.title}")
         val id = "task-${UUID.randomUUID()}"
         createTaskUseCase.createTask(createTaskRequest.toDomain(id))
-        return RestResponse.created(URI.create("/tasks/$id"))
+        return RestResponse.created(URI.create("/api/tasks/$id"))
     }
 
     @GET
