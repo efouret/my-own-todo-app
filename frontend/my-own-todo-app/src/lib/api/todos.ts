@@ -3,7 +3,7 @@ import axios from 'axios'
 import { todos } from '$lib/stores/todos'
 import type { Todo } from '$lib/types'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? '/api'
 
 export const fetchTodos = async (): Promise<void> => {
 	try {
