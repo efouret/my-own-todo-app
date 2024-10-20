@@ -9,7 +9,7 @@ import kotlinx.datetime.Instant
 class TaskTest : FunSpec({
     context("finish") {
         val fixedClock: Clock = object : Clock {
-            override fun now(): Instant = Instant.parse("2024-10-20T18:18:00+02:00")
+            override fun now(): Instant = Instant.parse("2024-10-20T18:18:00Z")
         }
 
         test("should correctly set new dueDate when onCompletion is true") {
@@ -25,7 +25,7 @@ class TaskTest : FunSpec({
 
             val finishedTask = task.finish(fixedClock)
 
-            finishedTask.dueDate?.epochSeconds shouldBe Instant.parse("2025-10-20T18:18:00+02:00").epochSeconds
+            finishedTask.dueDate?.epochSeconds shouldBe Instant.parse("2025-10-20T18:18:00Z").epochSeconds
         }
 
         test("should correctly set new dueDate when onCompletion is true") {
@@ -41,7 +41,7 @@ class TaskTest : FunSpec({
 
             val finishedTask = task.finish(fixedClock)
 
-            finishedTask.dueDate?.epochSeconds shouldBe Instant.parse("2024-12-20T18:18:00+01:00").epochSeconds
+            finishedTask.dueDate?.epochSeconds shouldBe Instant.parse("2024-12-20T18:18:00Z").epochSeconds
         }
     }
 })

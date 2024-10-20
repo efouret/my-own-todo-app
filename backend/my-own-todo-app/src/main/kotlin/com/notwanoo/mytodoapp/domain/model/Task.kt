@@ -27,7 +27,7 @@ data class Task(
         }
 
         val now = clock.now()
-        val timeZone = TimeZone.currentSystemDefault()
+        val timeZone = TimeZone.UTC
 
         val newDueDate = if (recurringPeriod.onCompletion) {
             now.plus(recurringPeriod.period, timeZone)
