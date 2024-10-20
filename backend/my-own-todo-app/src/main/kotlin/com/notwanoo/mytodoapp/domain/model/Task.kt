@@ -1,10 +1,7 @@
 package com.notwanoo.mytodoapp.domain.model
 
-import kotlinx.datetime.Clock
-import kotlinx.datetime.DatePeriod
-import kotlinx.datetime.Instant
+import kotlinx.datetime.*
 import kotlinx.serialization.Serializable
-import kotlin.time.Duration.Companion.days
 
 @Serializable
 data class Task(
@@ -20,21 +17,27 @@ data class Task(
     val history: List<TaskHistory> = emptyList(),
     val tags: Set<String> = emptySet(),
 ) {
-    fun finish(): Task {
+    fun finish(clock: Clock = Clock.System): Task {
         if (recurringPeriod == null) {
             return this.copy(
                 status = Status.Done,
-                updatedAt = Clock.System.now(),
+                updatedAt = clock.now(),
                 history = history + TaskHistory(this.copy(history = emptyList())),
             )
         }
 
+        val now = clock.now()
+        val timeZone = TimeZone.currentSystemDefault()
+
+        val newDueDate = if (recurringPeriod.onCompletion) {
+            now.plus(recurringPeriod.period, timeZone)
+        } else {
+            dueDate?.plus(recurringPeriod.period, timeZone)
+        }
+
         return this.copy(
-            dueDate = if (recurringPeriod.onCompletion) Clock.System.now()
-                .plus(recurringPeriod.period.toDuration()) else dueDate?.plus(
-                recurringPeriod.period.toDuration()
-            ),
-            updatedAt = Clock.System.now(),
+            dueDate = newDueDate,
+            updatedAt = clock.now(),
             history = history + TaskHistory(this.copy(history = emptyList())),
         )
     }
@@ -63,6 +66,3 @@ data class Task(
         val previousState: Task,
     )
 }
-
-//FIXME handle leap years
-fun DatePeriod.toDuration() = ((years * 365) + days).days
