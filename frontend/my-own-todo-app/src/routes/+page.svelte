@@ -6,6 +6,9 @@
 	import AddTodo from '$lib/components/AddTodo.svelte'
 	import { fetchTodos } from '$lib/stores/todos'
 	import { importCsv } from '$lib/api/todos'
+	import '../i18n'
+	import { init, t } from 'svelte-i18n'
+	import { browser } from '$app/environment'
 
 	// State variables
 	let isNavbarActive = false
@@ -50,13 +53,25 @@
 		const csvFile = formData.get('csv') as File
 		await importCsv(csvFile)
 	}
+
+	if (browser) {
+		init({
+			fallbackLocale: 'en',
+			initialLocale: navigator.language.split('-')[0], // Use 'en' for 'en-US', etc.
+		})
+	} else {
+		init({
+			fallbackLocale: 'en',
+			initialLocale: 'en',
+		})
+	}
 </script>
 
 <!-- Navbar -->
 <nav class="navbar is-primary" aria-label="main navigation">
 	<div class="navbar-brand">
 		<a class="navbar-item" href="/">
-			<strong>My Own Todo App</strong>
+			<strong>{$t("my-own-todo-app-title")}</strong>
 		</a>
 
 		<a
