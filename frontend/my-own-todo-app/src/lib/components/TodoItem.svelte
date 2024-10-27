@@ -10,7 +10,7 @@
 	let isModalActive = false
 
 	// Reference to the "Yes" button to focus when modal opens
-	let confirmButton
+	let confirmButton: HTMLButtonElement
 
 	// Function to open the confirmation modal
 	const openModal = () => {
