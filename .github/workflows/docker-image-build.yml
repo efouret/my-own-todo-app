@@ -22,13 +22,14 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-          cache: 'maven'
-          cache-dependency-path: 'backend/my-own-todo-app/pom.xml'
+          cache: 'gradle'
 
-      - name: Navigate to backend directory
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build with Gradle
         working-directory: backend/my-own-todo-app
-        run: |
-          mvn -B package
+        run: ./gradlew build
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
