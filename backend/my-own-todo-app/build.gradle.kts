@@ -2,6 +2,8 @@ import com.github.gradle.node.npm.task.NpmTask
 
 plugins {
     java
+    kotlin("jvm") version "2.0.21"
+    kotlin("plugin.serialization") version "2.0.21"
     id("io.quarkus")
     id("com.github.node-gradle.node") version "7.1.0"
 }
